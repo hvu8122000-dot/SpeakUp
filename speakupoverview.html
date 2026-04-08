@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpeakUp - Shape Your Voice</title>
+    <style>
+        /* Import các biến thể Lexend từ Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;700&family=Lexend+Mega:wght@700;800&family=Lexend:wght@300;600;700&display=swap');
+
+        :root {
+            /* Bảng màu chủ đạo 60:30:10 */
+            --bg-color: #ffffff;      /* 60% */
+            --navy-color: #061937;    /* 30% */
+            --teal-color: #3bc5ac;    /* 10% */
+            
+            /* Màu phase cho hiệu ứng glow */
+            --glow-phase-1: #3bc5ac; /* Teal */
+            --glow-phase-2: #f39c12; /* Orange/Gold */
+            --glow-phase-3: #9b59b6; /* Purple */
+            --glow-phase-4: #e74c3c; /* Red/Coral */
+        }
+
+        /* --- TYPOGRAPHY --- */
+        body {
+            font-family: 'Lexend', sans-serif;
+            font-weight: 300; /* Body text đọc dài */
+            background-color: var(--bg-color);
+            color: var(--navy-color);
+            margin: 0;
+            padding: 0;
+            line-height: 1.7;
+        }
+
+        h1, h2, .hero-title, .week-heading {
+            font-family: 'Lexend Mega', sans-serif;
+            font-weight: 700; /* Impact mạnh */
+            margin-bottom: 20px;
+        }
+
+        .label, .metadata, .slogan {
+            font-family: 'Lexend Deca', sans-serif;
+            font-weight: 400; /* Stroke hẹp, dễ đọc size nhỏ */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+        
+        strong {
+            font-weight: 700;
+        }
+
+        .card h3 {
+            font-family: 'Lexend', sans-serif;
+            font-weight: 600; /* Heading trong card */
+            margin-bottom: 15px;
+        }
+
+        /* --- LAYOUT & COMPONENTS --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 80px 20px;
+        }
+
+        .section-navy {
+            background-color: var(--navy-color);
+            color: var(--bg-color);
+        }
+
+        .text-center { text-align: center; }
+        
+        .accent-text { color: var(--teal-color); }
+
+        /* Nút bấm CTA */
+        .btn {
+            display: inline-block;
+            background-color: var(--teal-color);
+            color: var(--bg-color);
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: 'Lexend', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(59, 197, 172, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(59, 197, 172, 0.6);
+            background-color: #2da38e;
+        }
+
+        /* --- CARDS & HOVER ANIMATION (Glow Effect) --- */
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .card {
+            background-color: #f8fcfb;
+            padding: 30px;
+            border-radius: 12px;
+            border: 2px solid #e1e8eb;
+            color: var(--navy-color);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Định nghĩa màu glow cho từng phase/card */
+        .card[data-phase="1"]:hover {
+            border-color: var(--glow-phase-1);
+            box-shadow: 0 0 20px rgba(59, 197, 172, 0.5);
+            transform: translateY(-8px);
+        }
+        .card[data-phase="2"]:hover {
+            border-color: var(--glow-phase-2);
+            box-shadow: 0 0 20px rgba(243, 156, 18, 0.5);
+            transform: translateY(-8px);
+        }
+        .card[data-phase="3"]:hover {
+            border-color: var(--glow-phase-3);
+            box-shadow: 0 0 20px rgba(155, 89, 182, 0.5);
+            transform: translateY(-8px);
+        }
+        .card[data-phase="4"]:hover {
+            border-color: var(--glow-phase-4);
+            box-shadow: 0 0 20px rgba(231, 76, 60, 0.5);
+            transform: translateY(-8px);
+        }
+
+        /* Header / Page 1 */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-bottom: 5px solid var(--teal-color);
+        }
+
+        .logo-placeholder {
+            width: 150px;
+            height: 150px;
+            background-color: var(--bg-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            font-family: 'Lexend Mega', sans-serif;
+            color: var(--navy-color);
+            font-size: 1.2rem;
+            box-shadow: 0 0 30px rgba(59, 197, 172, 0.2);
+        }
+
+        /* Các thành phần nhỏ */
+        .badge {
+            display: inline-block;
+            background-color: rgba(59, 197, 172, 0.1);
+            color: var(--teal-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+        }
+        
+        ul.custom-list {
+            list-style: none;
+            padding: 0;
+        }
+        ul.custom-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 15px;
+        }
+        ul.custom-list li::before {
+            content: "•";
+            color: var(--teal-color);
+            font-weight: bold;
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: -5px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="section-navy hero">
+        <div class="container text-center">
+           <img src="speakuplogo.png" alt="SpeakUp Logo" style="width: 800px; height: auto; margin: 0 auto 30px; display: block;">
+            
+            <h1 class="hero-title" style="font-size: 4rem; margin: 13px 0;">SHAPE YOUR VOICE</h1>
+            <p class="slogan" style="color: #a8b2c1; letter-spacing: 4px;">Turn English From a SCHOOL SUBJECT INTO A REAL COMMUNICATION TOOL</p>
+        </div>
+    </header>
+
+    <section class="container">
+        <div class="text-center" style="max-width: 800px; margin: 0 auto;">
+            <span class="badge label">Thực trạng (The Reality)</span>
+            <h2 class="week-heading">BẠN ĐÃ HỌC TIẾNG ANH BAO NHIÊU NĂM?</h2>
+            <p style="font-size: 1.2rem; margin-top: 30px;">Trong nhiều năm, rất nhiều sinh viên và người đi làm đã dành <strong class="accent-text">5, 10, thậm chí 15 năm</strong> để học tiếng Anh.</p>
+            <p>Bạn có thể sở hữu điểm số khá giỏi và làm rất tốt các bài tập quen thuộc như: điền vào chỗ trống, chia thì động từ hay chọn đáp án đúng. Nhưng khi bước vào một cuộc hội thoại thực tế, bạn lại gặp rào cản:</p>
+            
+            <ul class="custom-list" style="text-align: left; display: inline-block; margin-top: 20px;">
+                <li>Nghe không kịp, không hiểu người bản ngữ đang nói gì.</li>
+                <li>Không dám mở miệng do thiếu tự tin.</li>
+                <li>Nói ra nhưng âm thanh rời rạc, thiếu tự nhiên và mang cảm giác "như người máy".</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section-navy">
+        <div class="container text-center" style="max-width: 800px;">
+            <span class="badge label" style="background-color: rgba(255,255,255,0.1); color: var(--bg-color);">The Root Cause</span>
+            <h2 class="week-heading accent-text">VẤN ĐỀ THỰC SỰ LÀ GÌ?</h2>
+            <p style="font-size: 1.2rem; margin-top: 30px;">Sự thật là, rào cản giao tiếp không hoàn toàn nằm ở việc bạn thiếu từ vựng hay yếu ngữ pháp.</p>
+            <div style="background-color: rgba(255,255,255,0.05); padding: 30px; border-radius: 12px; margin: 30px 0; border-left: 4px solid var(--teal-color);">
+                <p style="margin: 0; font-size: 1.1rem;">Cốt lõi vấn đề nằm ở một khoảng trống rất lớn trong quá trình học ngôn ngữ tại trường học: <br><strong class="accent-text" style="font-size: 1.3rem;">Ngữ điệu và hệ thống âm thanh của tiếng Anh.</strong></p>
+            </div>
+            <p>Đó chính là lý do <strong>SpeakUp</strong> ra đời. Chúng tôi định vị lại tiếng Anh không phải là một môn học để thi cử, mà là một công cụ giao tiếp thực thụ.</p>
+        </div>
+    </section>
+
+    <section class="container text-center">
+        <span class="badge label">The Solution</span>
+        <h2 class="week-heading">GIẢI PHÁP TỪ KHÓA HỌC "SHAPE YOUR VOICE"</h2>
+        <p style="max-width: 800px; margin: 20px auto;">Khóa học "Shape Your Voice" được <strong>SpeakUp</strong> thiết kế chuyên biệt để giải quyết triệt để khoảng trống âm thanh đó.</p>
+        
+        <div style="display: flex; justify-content: center; gap: 20px; margin: 40px 0;">
+            <div style="padding: 20px 40px; background-color: #f0f7f6; border-radius: 50px;">
+                <p class="metadata" style="margin: 0; color: var(--teal-color);">LỘ TRÌNH</p>
+                <p style="margin: 5px 0 0 0; font-family: 'Lexend Mega', sans-serif; color: var(--navy-color);">36 Sessions</p>
+            </div>
+            <div style="padding: 20px 40px; background-color: #f0f7f6; border-radius: 50px;">
+                <p class="metadata" style="margin: 0; color: var(--teal-color);">THỜI LƯỢNG</p>
+                <p style="margin: 5px 0 0 0; font-family: 'Lexend Mega', sans-serif; color: var(--navy-color);">3 Buổi/Tuần</p>
+            </div>
+        </div>
+        
+        <p style="max-width: 800px; margin: 0 auto;">Trong suốt khóa học, bạn không chỉ học cách phát âm đúng từng âm đơn lẻ, mà quan trọng nhất là biết cách sử dụng giọng nói của chính mình để giao tiếp tự nhiên. Tiến độ của học viên sẽ được theo dõi sát sao qua các bài tập ghi âm định kỳ.</p>
+    </section>
+
+    <section class="section-navy" style="background-color: #041126;">
+        <div class="container">
+            <div class="text-center">
+                <span class="badge label" style="background-color: rgba(59, 197, 172, 0.2);">Course Objectives</span>
+                <h2 class="week-heading">4 TRỤ CỘT ĐẦU RA CỦA KHÓA HỌC</h2>
+            </div>
+            
+            <div class="grid-4">
+                <div class="card" data-phase="1">
+                    <p class="metadata" style="color: var(--glow-phase-1);">Trụ cột 01</p>
+                    <h3>Master the Sound System</h3>
+                    <p style="font-size: 0.95rem;">Làm chủ hệ thống âm: Nắm vững bảng phiên âm IPA, hệ thống nguyên âm và phụ âm, từ đó tự tin giải mã và đọc chính xác bất kỳ từ mới nào.</p>
+                </div>
+                <div class="card" data-phase="2">
+                    <p class="metadata" style="color: var(--glow-phase-2);">Trụ cột 02</p>
+                    <h3>Build Clear Pronunciation</h3>
+                    <p style="font-size: 0.95rem;">Phát âm sắc nét: Luyện tập chuyên sâu các yếu tố quan trọng như âm cuối, âm /r/ kiểu Mỹ, và các phụ âm khó để đảm bảo sự rõ ràng khi phát âm.</p>
+                </div>
+                <div class="card" data-phase="3">
+                    <p class="metadata" style="color: var(--glow-phase-3);">Trụ cột 03</p>
+                    <h3>Speak with Natural Rhythm</h3>
+                    <p style="font-size: 0.95rem;">Nhịp điệu tự nhiên: Xóa bỏ giọng điệu "robot" bằng cách luyện nối âm, trọng âm câu và ngữ điệu, giúp lời nói trở nên uyển chuyển, tự nhiên.</p>
+                </div>
+                <div class="card" data-phase="4">
+                    <p class="metadata" style="color: var(--glow-phase-4);">Trụ cột 04</p>
+                    <h3>Use English in Real Communication</h3>
+                    <p style="font-size: 0.95rem;">Giao tiếp thực chiến: Ứng dụng ngay vào thực tế qua khả năng đọc hội thoại tự nhiên và thực hiện các bài tập lồng tiếng hoặc nhập vai một cách đầy tự tin.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container text-center" style="padding: 100px 20px;">
+        <h2 class="week-heading">ĐÃ ĐẾN LÚC LÀM CHỦ GIỌNG NÓI CỦA BẠN!</h2>
+        <p style="font-size: 1.2rem; max-width: 600px; margin: 20px auto;">Hãy để <strong>SpeakUp</strong> đồng hành cùng bạn trên hành trình biến tiếng Anh thành công cụ giao tiếp sắc bén nhất.</p>
+        
+        <a href="#" class="btn">Tham Gia Cùng <strong>SpeakUp</strong></a>
+        
+        <div style="margin-top: 50px; padding-top: 30px; border-top: 1px solid #eee;">
+            <p class="metadata" style="color: #888;">Thông tin liên hệ</p>
+            <p style="font-family: 'Lexend Deca', sans-serif;">Hotline: 0923.755.303 &nbsp;|&nbsp;  &nbsp;|&nbsp; Fanpage: /<strong>SpeakUp</strong>VN</p>
+        </div>
+    </section>
+
+</body>
+</html>
