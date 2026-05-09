@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shape Your Voice — Tóm tắt khóa học & Học phí</title>
+<meta name="description" content="Khóa luyện phát âm Shape Your Voice (SYVI 2026): 36 buổi, 12 tuần, IPA nền tảng đến phát âm tự nhiên. Học phí trọn gói." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;500;600;700&family=Lexend+Mega:wght@700;800&family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #ffffff;
+    --navy: #061937;
+    --teal: #3bc5ac;
+    --ink: #0f172a;
+    --muted: #64748b;
+    --line: #e2e8f0;
+
+    --p1: #4840A5; --p1bg: #ECEAFC; --p1card: #F5F4FE; --p1border: #C5C0EF;
+    --p2: #0B6150; --p2bg: #E1F0EC; --p2card: #F1F8F6; --p2border: #B6D8CF;
+    --p3: #A36110; --p3bg: #F9ECD8; --p3card: #FCF6EC; --p3border: #E8C99A;
+    --p4: #883016; --p4bg: #F6E1DA; --p4card: #FBEFEA; --p4border: #E6B6A6;
+
+    --f-mega: 'Lexend Mega', system-ui, sans-serif;
+    --f-sans: 'Lexend', system-ui, sans-serif;
+    --f-deca: 'Lexend Deca', system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--f-sans);
+    color: var(--ink);
+    background: var(--bg);
+    font-weight: 400;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* progress bar */
+  .progress {
+    position: fixed; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--p1) 0%, var(--p1) 25%, var(--p2) 25%, var(--p2) 50%, var(--p3) 50%, var(--p3) 75%, var(--p4) 75%, var(--p4) 100%);
+    z-index: 100;
+  }
+
+  /* hero */
+  .hero {
+    background: var(--navy);
+    color: #fff;
+    padding: 72px 24px 56px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; left: 0; right: 0; bottom: 0; height: 4px;
+    background: linear-gradient(90deg, var(--p1), var(--p2), var(--p3), var(--p4));
+  }
+  .kicker {
+    display: inline-block;
+    font-family: var(--f-deca);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--teal);
+    background: rgba(59,197,172,0.12);
+    padding: 8px 16px;
+    border-radius: 999px;
+    margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-family: var(--f-mega);
+    font-weight: 800;
+    font-size: clamp(36px, 6vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin: 0 0 16px;
+  }
+  .hero .sub {
+    font-family: var(--f-sans);
+    font-weight: 300;
+    font-size: clamp(15px, 2vw, 18px);
+    color: rgba(255,255,255,0.78);
+    max-width: 640px;
+    margin: 0 auto 32px;
+  }
+  .hero-meta {
+    display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
+  }
+  .pill {
+    font-family: var(--f-deca);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    padding: 10px 16px;
+    border-radius: 999px;
+    color: #fff;
+  }
+
+  /* shell */
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+  }
+  section { margin-bottom: 64px; }
+
+  /* section animation */
+  .anim {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .anim.visible { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .anim { opacity: 1; transform: none; transition: none; }
+  }
+
+  .section-kicker {
+    font-family: var(--f-deca);
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin: 0 0 10px;
+  }
+  .section-title {
+    font-family: var(--f-mega);
+    font-weight: 700;
+    font-size: clamp(24px, 3.4vw, 32px);
+    color: var(--navy);
+    margin: 0 0 28px;
+    letter-spacing: -0.01em;
+  }
+
+  /* info grid (4 cards) */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .info {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px;
+    transition: box-shadow 0.2s, transform 0.15s, border-color 0.2s;
+  }
+  .info:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    transform: translateY(-1px);
+    border-color: var(--teal);
+  }
+  .info .label {
+    font-family: var(--f-deca);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .info .value {
+    font-family: var(--f-sans);
+    font-weight: 600;
+    font-size: 17px;
+    color: var(--navy);
+  }
+  .info .value small {
+    display: block;
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* phase strip */
+  .phase-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .phase {
+    border-top: 4px solid;
+    background: #fff;
+    border-radius: 0 0 12px 12px;
+    padding: 18px 18px 20px;
+    border-left: 1px solid var(--line);
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .phase[data-p="1"] { border-top-color: var(--p1); background: var(--p1card); }
+  .phase[data-p="2"] { border-top-color: var(--p2); background: var(--p2card); }
+  .phase[data-p="3"] { border-top-color: var(--p3); background: var(--p3card); }
+  .phase[data-p="4"] { border-top-color: var(--p4); background: var(--p4card); }
+  .phase .ph-label {
+    font-family: var(--f-deca);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .phase[data-p="1"] .ph-label { color: var(--p1); }
+  .phase[data-p="2"] .ph-label { color: var(--p2); }
+  .phase[data-p="3"] .ph-label { color: var(--p3); }
+  .phase[data-p="4"] .ph-label { color: var(--p4); }
+  .phase .ph-name {
+    font-family: var(--f-sans);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--navy);
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .phase .ph-meta {
+    font-family: var(--f-deca);
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* tuition */
+  .tuition-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .plan {
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px;
+    background: #fff;
+    position: relative;
+    transition: box-shadow 0.2s, transform 0.15s;
+    display: flex;
+    flex-direction: column;
+  }
+  .plan:hover { box-shadow: 0 8px 30px rgba(6,25,55,0.08); transform: translateY(-2px); }
+  .plan.featured { border-color: var(--teal); background: linear-gradient(180deg, #f6fffd 0%, #fff 60%); }
+  .plan.featured::before {
+    content: 'Phổ biến';
+    position: absolute;
+    top: -10px; right: 24px;
+    background: var(--teal);
+    color: #fff;
+    font-family: var(--f-deca);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 999px;
+  }
+  .plan h3 {
+    font-family: var(--f-sans);
+    font-weight: 600;
+    font-size: 18px;
+    margin: 0 0 6px;
+    color: var(--navy);
+  }
+  .plan .plan-sub {
+    font-family: var(--f-deca);
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 22px;
+  }
+  .price {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .price .amount {
+    font-family: var(--f-mega);
+    font-weight: 800;
+    font-size: 38px;
+    color: var(--navy);
+    letter-spacing: -0.02em;
+  }
+  .price .unit {
+    font-family: var(--f-deca);
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 600;
+  }
+  .per-session {
+    font-family: var(--f-deca);
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .per-session b {
+    font-weight: 700;
+    color: var(--teal);
+    font-size: 15px;
+  }
+  .features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+  }
+  .features li {
+    font-size: 14px;
+    color: var(--ink);
+    padding: 8px 0 8px 26px;
+    position: relative;
+    border-bottom: 1px dashed var(--line);
+  }
+  .features li:last-child { border-bottom: none; }
+  .features li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 14px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--teal);
+    box-shadow: inset 0 0 0 3px #fff;
+  }
+
+  /* breakdown table */
+  .breakdown {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .breakdown th, .breakdown td {
+    text-align: left;
+    padding: 16px 20px;
+    font-size: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .breakdown thead th {
+    font-family: var(--f-deca);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: #fafbfc;
+  }
+  .breakdown tbody tr:last-child td { border-bottom: none; }
+  .breakdown tbody tr:hover td { background: #fafbfc; }
+  .breakdown td.plan-name { font-weight: 600; color: var(--navy); }
+  .breakdown td.total { font-family: var(--f-deca); font-weight: 700; color: var(--navy); }
+  .breakdown td.unit-cost {
+    font-family: var(--f-deca);
+    font-weight: 700;
+    color: var(--teal);
+  }
+  .breakdown td .small {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  /* CTA */
+  .cta {
+    background: var(--navy);
+    color: #fff;
+    border-radius: 20px;
+    padding: 48px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta::before {
+    content: '';
+    position: absolute; left: 0; right: 0; top: 0; height: 3px;
+    background: linear-gradient(90deg, var(--p1), var(--p2), var(--p3), var(--p4));
+  }
+  .cta h2 {
+    font-family: var(--f-mega);
+    font-weight: 700;
+    font-size: clamp(22px, 3vw, 28px);
+    margin: 0 0 10px;
+    color: #fff;
+  }
+  .cta p {
+    color: rgba(255,255,255,0.75);
+    margin: 0 0 26px;
+    font-size: 15px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--teal);
+    color: #fff;
+    font-family: var(--f-deca);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    padding: 14px 28px;
+    border-radius: 999px;
+    text-decoration: none;
+    box-shadow: 0 6px 18px rgba(59,197,172,0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+    min-height: 44px;
+  }
+  .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(59,197,172,0.6);
+  }
+
+  /* responsive */
+  @media (max-width: 900px) {
+    .info-grid { grid-template-columns: repeat(2, 1fr); }
+    .phase-bar { grid-template-columns: repeat(2, 1fr); }
+    .tuition-grid { grid-template-columns: 1fr; }
+    main { padding: 48px 18px 72px; }
+    section { margin-bottom: 48px; }
+  }
+  @media (max-width: 480px) {
+    .hero { padding: 56px 18px 44px; }
+    .info-grid { grid-template-columns: 1fr; }
+    .breakdown th, .breakdown td { padding: 12px 14px; font-size: 13px; }
+    .price .amount { font-size: 32px; }
+    .plan { padding: 22px; }
+  }
+</style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"></div>
+
+  <header class="hero">
+    <span class="kicker">Khai giảng SYVI · 2026</span>
+    <h1>Shape Your Voice</h1>
+    <p class="sub">Khóa luyện phát âm tiếng Anh từ IPA nền tảng đến phát âm tự nhiên — 36 buổi, 12 tuần, dành cho người Việt trưởng thành.</p>
+    <div class="hero-meta">
+      <span class="pill">01/06 → 21/08</span>
+      <span class="pill">Thứ 2 · 4 · 6</span>
+      <span class="pill">18:30 — 19:30</span>
+      <span class="pill">Online Zoom</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="anim" id="overview">
+      <p class="section-kicker">Tổng quan</p>
+      <h2 class="section-title">Thông số khóa học</h2>
+      <div class="info-grid">
+        <div class="info">
+          <div class="label">Thời lượng</div>
+          <div class="value">36 buổi<small>12 tuần · 3 tháng</small></div>
+        </div>
+        <div class="info">
+          <div class="label">Mỗi buổi</div>
+          <div class="value">60 phút<small>1 tiếng / session</small></div>
+        </div>
+        <div class="info">
+          <div class="label">Tần suất</div>
+          <div class="value">3 buổi / tuần<small>Thứ 2 · 4 · 6</small></div>
+        </div>
+        <div class="info">
+          <div class="label">Hình thức</div>
+          <div class="value">Online Zoom<small>hoặc 1-1 trực tiếp</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="anim" id="phases">
+      <p class="section-kicker">Lộ trình</p>
+      <h2 class="section-title">4 Phase · 12 Tuần</h2>
+      <div class="phase-bar">
+        <div class="phase" data-p="1">
+          <div class="ph-label">Phase 1</div>
+          <div class="ph-name">IPA &amp; Phoneme Foundation</div>
+          <div class="ph-meta">Tuần 1–3 · B1–B9</div>
+        </div>
+        <div class="phase" data-p="2">
+          <div class="ph-label">Phase 2</div>
+          <div class="ph-name">Connected Speech &amp; Rhythm</div>
+          <div class="ph-meta">Tuần 4–6 · B10–B18</div>
+        </div>
+        <div class="phase" data-p="3">
+          <div class="ph-label">Phase 3</div>
+          <div class="ph-name">Applied Voice &amp; Performance</div>
+          <div class="ph-meta">Tuần 7–10 · B19–B30</div>
+        </div>
+        <div class="phase" data-p="4">
+          <div class="ph-label">Phase 4</div>
+          <div class="ph-name">Independence &amp; Assessment</div>
+          <div class="ph-meta">Tuần 11–12 · B31–B36</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="anim" id="tuition">
+      <p class="section-kicker">Học phí</p>
+      <h2 class="section-title">Hai gói học, một mục tiêu</h2>
+      <div class="tuition-grid">
+        <article class="plan featured">
+          <h3>Học nhóm Online qua Zoom</h3>
+          <div class="plan-sub">Lớp tập trung · Tương tác trực tiếp với giảng viên</div>
+          <div class="price">
+            <span class="amount">4.000.000</span>
+            <span class="unit">VND / toàn khóa</span>
+          </div>
+          <div class="per-session">≈ <b>111.111 VND</b> / buổi (60 phút)</div>
+          <ul class="features">
+            <li>36 buổi · 12 tuần · qua Zoom</li>
+            <li>Tài liệu IPA + Syllabus đầy đủ</li>
+            <li>Bài tập về nhà có chữa</li>
+            <li>Cộng đồng học viên SYVI 2026</li>
+          </ul>
+        </article>
+
+        <article class="plan">
+          <h3>Học 1-1 (Online hoặc Trực tiếp)</h3>
+          <div class="plan-sub">Lộ trình cá nhân hóa · Linh hoạt giờ học</div>
+          <div class="price">
+            <span class="amount">6.000.000</span>
+            <span class="unit">VND / toàn khóa</span>
+          </div>
+          <div class="per-session">≈ <b>166.667 VND</b> / buổi (60 phút)</div>
+          <ul class="features">
+            <li>36 buổi 1 kèm 1 với giảng viên</li>
+            <li>Sửa phát âm trực tiếp từng âm</li>
+            <li>Lịch học linh hoạt theo học viên</li>
+            <li>Online Zoom hoặc gặp trực tiếp</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="anim" id="breakdown">
+      <p class="section-kicker">So sánh chi tiết</p>
+      <h2 class="section-title">Bảng tính học phí</h2>
+      <table class="breakdown">
+        <thead>
+          <tr>
+            <th>Gói học</th>
+            <th>Tổng buổi</th>
+            <th>Học phí toàn khóa</th>
+            <th>Chi phí / buổi</th>
+            <th>Chi phí / tuần</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="plan-name">Online Zoom (nhóm)<span class="small">60 phút / buổi</span></td>
+            <td>36</td>
+            <td class="total">4.000.000 đ</td>
+            <td class="unit-cost">≈ 111.111 đ</td>
+            <td>333.333 đ <span class="small">3 buổi / tuần</span></td>
+          </tr>
+          <tr>
+            <td class="plan-name">1-1 Online / Trực tiếp<span class="small">60 phút / buổi</span></td>
+            <td>36</td>
+            <td class="total">6.000.000 đ</td>
+            <td class="unit-cost">≈ 166.667 đ</td>
+            <td>500.000 đ <span class="small">3 buổi / tuần</span></td>
+          </tr>
+          <tr>
+            <td class="plan-name">Chênh lệch<span class="small">1-1 so với nhóm</span></td>
+            <td>—</td>
+            <td class="total">+2.000.000 đ</td>
+            <td class="unit-cost">+55.556 đ</td>
+            <td>+166.667 đ</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="anim" id="contact">
+      <div class="cta">
+        <h2>Sẵn sàng bắt đầu khóa SYVI 2026?</h2>
+        <p>Liên hệ qua Zalo để được tư vấn lộ trình và giữ chỗ.</p>
+        <a class="btn" href="https://zalo.me/0923755303" target="_blank" rel="noopener">
+          Zalo · 0923 755 303
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // scroll progress
+    const progress = document.querySelector('.progress');
+    const updateProgress = () => {
+      const h = document.documentElement;
+      const scrolled = h.scrollTop / (h.scrollHeight - h.clientHeight);
+      progress.style.transform = `scaleX(${scrolled})`;
+      progress.style.transformOrigin = '0 0';
+    };
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+
+    // section animations
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.anim').forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>
